@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+<title>API faucet</title>
+<meta name="title" content="API Faucet">
+<meta name="description" content="Ethereum testnet faucet"/>
+<meta name="author" content="TMIYChao">
+</head>
+
+<h2>Welcome to Ethereum API faucet &#x1F6B0;</h2>
+<p>This web provides a simple API for automatic receiving of ETH testnet funds.</p>
+<p>Deploy your own and contribute: <a href="https://github.com/taxmeifyoucan/api-faucet">Source repo</a></p>
+<p></p>
+<h3> Faucet values </h3>
+<p>Max ETH per tx: <code>100</code></p>
+<p>Wait time between transactions: <code>5 minutes/25 blocks</code></p>
+
+<h3>API docs</h3>
+<h4><p>Recieve testnet funds to your address:</p></h4>
+<p>Sends given amount of ETH to given address. Returns txid.</p>
+<p>Route: <code>/send-eth</code></p>
+<p>Type: POST</p>
+<p>Content: <code>
+    to_address":"eth_address",
+    "amount_eth":amount_in_eth
+</code></p>
+<p>cURL example:</p>
+<code>curl -X POST "http://localhost:8000/send-eth" -H "accept: application/json" -H "Content-Type: application/json" -d '{"to_address":"0x1234567890123456789012345678901234567890","amount_eth":10}'
+</code>
+
+<h4>Check status of the faucet:</h4>
+
+<p>Returns amount of ETH left in the faucet and its settings. </p>
+<p>Route: <code>/status</code></p>
+<p>Type: GET</p>
+<p>cURL example:</p>
+<code>curl "http://localhost:8000/status"
+
