@@ -4,12 +4,6 @@ from web3.exceptions import TransactionNotFound
 from fastapi.responses import JSONResponse, HTMLResponse
 from pydantic import BaseModel
 
-
-class TransactionData(BaseModel):
-    to_address: str
-    amount_eth: int
-
-
 app = FastAPI()
 
 # Set your provider
@@ -22,6 +16,10 @@ private_key = ""
 # Variables for max payout and wait time between payments
 MAX_ETH=100
 PAST_BLOCKS=25 #5 min
+
+class TransactionData(BaseModel):
+    to_address: str
+    amount_eth: int
 
 def validate_tx(to_address: str, amount_eth: int):
     if not w3.isConnected():
@@ -81,7 +79,7 @@ async def send_eth(data: TransactionData):
 async def check_status():    
     balance=w3.eth.get_balance(sender_address)
     return JSONResponse(content={"Available ETH": balance/1000000000000000000, "Max ETH per tx": MAX_ETH, "Wait period sec": PAST_BLOCKS*12})
-
+# Frontend at root path, change index.html to reflect your settings
 @app.get("/")
 async def read_root():
     with open("index.html") as f:
