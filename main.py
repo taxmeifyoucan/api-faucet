@@ -1,10 +1,9 @@
-from fastapi import FastAPI, HTTPException
 from web3 import Web3
 from web3.exceptions import TransactionNotFound
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
-app = FastAPI()
 
 # Set your provider
 w3 = Web3(Web3.HTTPProvider(''))
@@ -16,6 +15,21 @@ private_key = ""
 # Variables for max payout and wait time between payments
 MAX_ETH=100
 PAST_BLOCKS=25 #5 min
+
+app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://127.0.0.1"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="",
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class TransactionData(BaseModel):
     to_address: str
